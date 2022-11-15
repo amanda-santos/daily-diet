@@ -22,8 +22,6 @@ export type TextProps = {
 };
 
 export const Text = styled.Text<TextProps>`
-  line-height: 20px;
-
   ${({ color, size, weight, theme, customStyles }) => `
     color: ${color ? theme.colors[color] : theme.colors["gray-1"]};
     font-family: ${

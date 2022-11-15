@@ -1,0 +1,1 @@
+export { MealsPercentageBox } from "./MealsPercentageBox";
