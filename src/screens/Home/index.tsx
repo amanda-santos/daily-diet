@@ -3,13 +3,13 @@ import { Text } from "react-native";
 
 import { Header } from "@components/Header";
 
-import { Container } from "./styles";
+import * as S from "./styles";
 
 export const Home = (): ReactElement => {
   return (
-    <Container>
+    <S.Container>
       <Header />
       <Text>Home</Text>
-    </Container>
+    </S.Container>
   );
 };
