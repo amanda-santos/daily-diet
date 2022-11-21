@@ -1,4 +1,5 @@
 import { ReactElement } from "react";
+import { FlatList } from "react-native";
 import groupBy from "lodash.groupby";
 
 import { Button, Header, Text } from "@components/index";
@@ -6,7 +7,6 @@ import { Button, Header, Text } from "@components/index";
 import { MealGroup, MealsPercentageBox } from "./components";
 import * as S from "./styles";
 import { Meal } from "src/types";
-import { FlatList } from "react-native";
 
 type MealGroupType = {
   date: Date;
@@ -47,13 +47,47 @@ export const Home = (): ReactElement => {
       time: "10:00",
       isWithinDiet: false,
     },
+    {
+      id: "5",
+      date: new Date("2022-04-05"),
+      title: "Breakfast 2",
+      description: "Eggs, bacon, toast, coffee",
+      time: "10:00",
+      isWithinDiet: false,
+    },
+    {
+      id: "6",
+      date: new Date("2022-04-05"),
+      title: "Breakfast 2",
+      description: "Eggs, bacon, toast, coffee",
+      time: "10:00",
+      isWithinDiet: false,
+    },
+    {
+      id: "7",
+      date: new Date("2022-04-05"),
+      title: "Breakfast 2",
+      description: "Eggs, bacon, toast, coffee",
+      time: "10:00",
+      isWithinDiet: false,
+    },
+    {
+      id: "8",
+      date: new Date("2022-04-05"),
+      title: "Breakfast 2",
+      description: "Eggs, bacon, toast, coffee",
+      time: "10:00",
+      isWithinDiet: false,
+    },
   ];
 
   const mealsGroupedByDate = groupBy(meals, (meal) => meal.date);
-  const array: MealGroupType[] = Object.keys(mealsGroupedByDate).map((key) => ({
-    date: new Date(key),
-    meals: mealsGroupedByDate[key],
-  }));
+  const mealGroups: MealGroupType[] = Object.keys(mealsGroupedByDate).map(
+    (key) => ({
+      date: new Date(key),
+      meals: mealsGroupedByDate[key],
+    })
+  );
 
   return (
     <S.Container>
@@ -65,11 +99,12 @@ export const Home = (): ReactElement => {
       <Button title="Add a meal" icon="add" />
 
       <FlatList
-        data={array}
+        data={mealGroups}
         keyExtractor={(item) => item.date.toISOString()}
         renderItem={({ item }) => (
           <MealGroup date={item.date} meals={item.meals} />
         )}
+        showsVerticalScrollIndicator={false}
       />
     </S.Container>
   );
