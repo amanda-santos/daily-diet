@@ -2,7 +2,6 @@ import { useNavigation } from "@react-navigation/native";
 
 import { Text } from "@components/Text";
 import * as S from "./styles";
-import { TouchableOpacity } from "react-native";
 
 export type MealsPercentageBoxProps = {
   percentage: number;

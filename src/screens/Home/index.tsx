@@ -4,9 +4,9 @@ import groupBy from "lodash.groupby";
 
 import { Button, Header, Text } from "@components/index";
 
+import { Meal } from "src/types";
 import { MealGroup, MealsPercentageBox } from "./components";
 import * as S from "./styles";
-import { Meal } from "src/types";
 
 type MealGroupType = {
   date: Date;
