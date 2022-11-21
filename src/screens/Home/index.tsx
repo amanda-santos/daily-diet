@@ -92,6 +92,7 @@ export const Home = (): ReactElement => {
   return (
     <S.Container>
       <Header />
+
       <MealsPercentageBox percentage={90.86} color="green" />
 
       <Text customStyles="margin: 48px 0 12px 0">Meals</Text>

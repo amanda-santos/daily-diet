@@ -9,8 +9,4 @@ export const Icon = styled(ArrowUpRight).attrs<IconProps>(
     color: theme.colors[`${color}-dark`],
     size: 24,
   })
-)`
-  position: absolute;
-  right: 16px;
-  top: 16px;
-`;
+)``;

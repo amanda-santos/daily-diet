@@ -3,8 +3,8 @@ import { useFonts } from "expo-font";
 import { Nunito_400Regular, Nunito_700Bold } from "@expo-google-fonts/nunito";
 import { ThemeProvider } from "styled-components";
 
-import { Home } from "@screens/Home";
 import { theme } from "@theme/index";
+import { Routes } from "@routes/index";
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Nunito_400Regular, Nunito_700Bold });
@@ -16,7 +16,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      {fontsLoaded ? <Home /> : null}
+      {fontsLoaded ? <Routes /> : null}
     </ThemeProvider>
   );
 }
