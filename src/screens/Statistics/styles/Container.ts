@@ -1,6 +1,12 @@
 import styled from "styled-components/native";
-import { View } from "react-native";
 
-export const Container = styled(View)`
+export type ContainerProps = {
+  color: "red" | "green";
+};
+
+export const Container = styled.View<ContainerProps>`
   flex: 1;
+
+  background-color: ${({ theme, color = "green" }) =>
+    theme.colors[`${color}-light`]};
 `;

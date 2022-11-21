@@ -19,10 +19,8 @@ export const MealsPercentageBox = ({
   };
 
   return (
-    <S.Container color={color}>
-      <S.OpenStatsButton onPress={handleOpenStatistics}>
-        <S.Icon color={color} />
-      </S.OpenStatsButton>
+    <S.Container color={color} onPress={handleOpenStatistics}>
+      <S.Icon color={color} />
 
       <Text weight="bold" size="xxl">
         {percentage}%
