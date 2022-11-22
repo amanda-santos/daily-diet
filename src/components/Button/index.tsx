@@ -10,9 +10,9 @@ type ButtonProps = TouchableOpacityProps & {
   icon?: keyof typeof MaterialIcons.glyphMap;
 };
 
-export const Button = ({ title, icon }: ButtonProps) => {
+export const Button = ({ title, icon, ...rest }: ButtonProps) => {
   return (
-    <S.Container>
+    <S.Container {...rest}>
       {icon && <S.Icon name={icon} />}
       <Text color="white" weight="bold" size="sm">
         {title}

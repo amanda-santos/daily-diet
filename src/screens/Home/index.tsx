@@ -1,5 +1,6 @@
 import { ReactElement } from "react";
 import { FlatList } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import groupBy from "lodash.groupby";
 
 import { Button, Header, Text } from "@components/index";
@@ -81,6 +82,8 @@ export const Home = (): ReactElement => {
     },
   ];
 
+  const navigation = useNavigation();
+
   const mealsGroupedByDate = groupBy(meals, (meal) => meal.date);
   const mealGroups: MealGroupType[] = Object.keys(mealsGroupedByDate).map(
     (key) => ({
@@ -88,6 +91,10 @@ export const Home = (): ReactElement => {
       meals: mealsGroupedByDate[key],
     })
   );
+
+  const handleOpenAddAMeal = () => {
+    navigation.navigate("mealAddedSuccessfully", { isWithinDiet: true });
+  };
 
   return (
     <S.Container>
@@ -97,7 +104,7 @@ export const Home = (): ReactElement => {
 
       <Text customStyles="margin: 48px 0 12px 0">Meals</Text>
 
-      <Button title="Add a meal" icon="add" />
+      <Button title="Add a meal" icon="add" onPress={handleOpenAddAMeal} />
 
       <FlatList
         data={mealGroups}
