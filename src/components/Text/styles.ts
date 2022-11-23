@@ -18,17 +18,15 @@ export type TextProps = {
     | "white";
   size?: "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
   weight?: "bold" | "regular";
-  customStyles?: string;
+  customStyles?: Record<string, unknown>;
 };
 
 export const Text = styled.Text<TextProps>`
-  ${({ color, size, weight, theme, customStyles }) => `
+  ${({ color, size, weight, theme }) => `
     color: ${color ? theme.colors[color] : theme.colors["gray-1"]};
     font-family: ${
       weight ? theme.fontFamily[weight] : theme.fontFamily.regular
     };
     font-size: ${size ? theme.fontSize[size] : theme.fontSize.md};
-    
-    ${customStyles}
   `}
 `;

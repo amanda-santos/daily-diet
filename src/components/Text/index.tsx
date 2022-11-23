@@ -6,6 +6,10 @@ type TextProps = S.TextProps & {
   children: ReactNode;
 };
 
-export const Text = ({ children, ...rest }: TextProps) => {
-  return <S.Text {...rest}>{children}</S.Text>;
+export const Text = ({ children, customStyles, ...rest }: TextProps) => {
+  return (
+    <S.Text style={customStyles} {...rest}>
+      {children}
+    </S.Text>
+  );
 };

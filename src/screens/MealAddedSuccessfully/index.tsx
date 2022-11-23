@@ -35,7 +35,14 @@ export const MealAddedSuccessfully = () => {
         {title}
       </Text>
 
-      <Text customStyles="marginTop: 8px; text-align: center;">{subtitle}</Text>
+      <Text
+        customStyles={{
+          marginTop: 8,
+          textAlign: "center",
+        }}
+      >
+        {subtitle}
+      </Text>
 
       <S.Image source={image} />
 

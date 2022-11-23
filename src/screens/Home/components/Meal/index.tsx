@@ -20,7 +20,12 @@ export const Meal = ({ meal }: MealProps) => {
         {time}
       </S.CustomText>
 
-      <Text color="gray-2" customStyles="flex: 1">
+      <Text
+        color="gray-2"
+        customStyles={{
+          flex: 1,
+        }}
+      >
         {title}
       </Text>
 

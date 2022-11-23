@@ -34,7 +34,13 @@ export const Statistics = (): ReactElement => {
       </S.Header>
 
       <S.MainContent>
-        <Text size="sm" weight="bold" customStyles="marginBottom: 12px">
+        <Text
+          size="sm"
+          weight="bold"
+          customStyles={{
+            marginBottom: 12,
+          }}
+        >
           General statistics
         </Text>
 

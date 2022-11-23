@@ -93,7 +93,7 @@ export const Home = (): ReactElement => {
   );
 
   const handleOpenAddAMeal = () => {
-    navigation.navigate("mealAddedSuccessfully", { isWithinDiet: true });
+    navigation.navigate("mealAddedSuccessfully", { isWithinDiet: false });
   };
 
   return (
@@ -102,7 +102,14 @@ export const Home = (): ReactElement => {
 
       <MealsPercentageBox percentage={90.86} color="green" />
 
-      <Text customStyles="margin: 48px 0 12px 0">Meals</Text>
+      <Text
+        customStyles={{
+          marginTop: 48,
+          marginBottom: 12,
+        }}
+      >
+        Meals
+      </Text>
 
       <Button title="Add a meal" icon="add" onPress={handleOpenAddAMeal} />
 

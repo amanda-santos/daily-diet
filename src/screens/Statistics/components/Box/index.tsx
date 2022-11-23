@@ -15,7 +15,7 @@ export const Box = ({ number, description, color = "gray" }: BoxProps) => {
         {number}
       </Text>
 
-      <Text size="sm" color="gray-2" customStyles="marginTop: 8px">
+      <Text size="sm" color="gray-2" customStyles={{ marginTop: 8 }}>
         {description}
       </Text>
     </S.Container>
