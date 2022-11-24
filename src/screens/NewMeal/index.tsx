@@ -1,5 +1,4 @@
-import { SimpleHeader } from "@components/SimpleHeader";
-import { Text } from "@components/Text";
+import { MealForm, SimpleHeader } from "@components/index";
 
 import * as S from "./styles";
 
@@ -9,7 +8,7 @@ export const NewMeal = () => {
       <SimpleHeader title="New meal" />
 
       <S.MainContent>
-        <Text>Name</Text>
+        <MealForm />
       </S.MainContent>
     </S.Container>
   );
