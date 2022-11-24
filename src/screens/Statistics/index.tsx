@@ -1,28 +1,19 @@
 import { ReactElement } from "react";
 import { View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
-import { Text } from "@components/Text";
+import { BackButton, Text } from "@components/index";
 
-import * as S from "./styles";
 import { Box } from "./components";
+import * as S from "./styles";
 
 export const Statistics = (): ReactElement => {
-  const navigation = useNavigation();
-
   const percentage = 89.86;
   const color = percentage >= 60 ? "green" : "red";
-
-  const handleGoBack = () => {
-    navigation.goBack();
-  };
 
   return (
     <S.Container color={color}>
       <S.Header>
-        <S.BackButton onPress={handleGoBack}>
-          <S.Icon color={color} />
-        </S.BackButton>
+        <BackButton color={color} />
 
         <Text weight="bold" size="xxl">
           {percentage}%

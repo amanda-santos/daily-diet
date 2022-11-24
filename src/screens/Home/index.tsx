@@ -93,7 +93,7 @@ export const Home = (): ReactElement => {
   );
 
   const handleOpenAddAMeal = () => {
-    navigation.navigate("mealAddedSuccessfully", { isWithinDiet: false });
+    navigation.navigate("newMeal");
   };
 
   return (
