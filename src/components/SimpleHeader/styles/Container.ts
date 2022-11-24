@@ -5,10 +5,11 @@ type ContainerProps = {
 };
 
 export const Container = styled.View<ContainerProps>`
-  flex: 1;
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
+
+  padding-bottom: 24px;
 
   width: 100%;
 
