@@ -6,9 +6,9 @@ import { Meal } from "src/types";
 export const getAllMeals = async (): Promise<Meal[]> => {
   try {
     const storage = await AsyncStorage.getItem(MEAL_COLLECTION);
-    const tasks: Meal[] = storage ? JSON.parse(storage) : [];
+    const meals: Meal[] = storage ? JSON.parse(storage) : [];
 
-    return tasks;
+    return meals;
   } catch (error) {
     throw error;
   }
