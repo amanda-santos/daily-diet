@@ -1,5 +1,5 @@
 export type Meal = {
-  id: string;
+  uuid: string;
   title: string;
   description: string;
   date: Date;
