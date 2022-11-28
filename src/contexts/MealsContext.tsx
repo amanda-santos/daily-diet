@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import { Alert } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import {
   getAllMeals,
@@ -7,6 +8,7 @@ import {
   removeMealByUuid,
   updateMeal,
 } from "@storage/meal";
+import { isDateValid } from "@utils/isDateValid";
 
 import { Meal } from "src/types";
 
@@ -26,6 +28,7 @@ type MealsProviderProps = {
 
 export const MealsProvider = ({ children }: MealsProviderProps) => {
   const [meals, setMeals] = useState<Meal[]>([]);
+  const navigation = useNavigation();
 
   const fetchMeals = async () => {
     try {
@@ -38,21 +41,31 @@ export const MealsProvider = ({ children }: MealsProviderProps) => {
   };
 
   const onCreateMeal = async (meal: Omit<Meal, "uuid">) => {
-    const trimmedMealTitle = meal.title.trim();
+    const trimmedMealName = meal.name.trim();
 
-    if (trimmedMealTitle.length === 0) {
+    if (trimmedMealName.length === 0) {
       return Alert.alert(
         "New meal",
         "Please enter a description for the meal."
       );
     }
 
+    const isMealDateValid = isDateValid(meal.date);
+    const isMealTimeValid = isDateValid(meal.time);
+
+    if (!isMealDateValid || !isMealTimeValid) {
+      return Alert.alert(
+        "New meal",
+        "Please enter a valid date and time for the meal."
+      );
+    }
+
     try {
       await createMeal({
         ...meal,
-        title: trimmedMealTitle,
+        name: trimmedMealName,
       });
-      fetchMeals();
+      navigation.navigate("home");
     } catch (error) {
       Alert.alert(
         "New meal",

@@ -1,6 +1,6 @@
-import { ReactElement, useEffect } from "react";
+import { ReactElement, useCallback, useEffect } from "react";
 import { FlatList } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import groupBy from "lodash.groupby";
 
 import { Button, Header, Text } from "@components/index";
@@ -18,9 +18,11 @@ type MealGroupType = {
 export const Home = (): ReactElement => {
   const { fetchMeals, meals } = useMealsContext();
 
-  useEffect(() => {
-    fetchMeals();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchMeals();
+    }, [])
+  );
 
   const navigation = useNavigation();
 

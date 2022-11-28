@@ -19,7 +19,7 @@ export const MealGroup = ({ date, meals }: MealGroupProps) => {
 
       <FlatList
         data={meals}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.uuid}
         renderItem={({ item }) => <Meal meal={item} />}
         style={{ width: "100%" }}
       />

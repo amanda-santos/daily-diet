@@ -5,11 +5,28 @@ import { Button } from "../Button";
 
 import * as S from "./styles";
 import { View } from "react-native";
+import { useMealsContext } from "@contexts/MealsContext";
+import { parseDate } from "@utils/parseDate";
+import { parseTime } from "@utils/parseTime";
 
 export const MealForm = () => {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [isWithinDiet, setIsWithinDiet] = useState(true);
+
+  const { onCreateMeal } = useMealsContext();
+
+  const handleCreateMeal = () => {
+    onCreateMeal({
+      name,
+      description,
+      date: parseDate(date),
+      time: parseTime(time),
+      isWithinDiet,
+    });
+  };
 
   return (
     <S.Container
@@ -20,13 +37,15 @@ export const MealForm = () => {
       }}
     >
       <View>
-        <TextInput label="Name" />
+        <TextInput label="Name" value={name} onChangeText={setName} />
 
         <TextInput
           label="Description"
           multiline={true}
           numberOfLines={4}
           style={{ minHeight: 128, textAlignVertical: "top" }}
+          value={description}
+          onChangeText={setDescription}
         />
 
         <S.InputRow>
@@ -34,12 +53,11 @@ export const MealForm = () => {
             label="Date"
             type="datetime"
             options={{
-              format: "DD/MM/YYYY",
+              format: "DD/MM/YY",
             }}
             value={date}
             onChangeText={(text) => {
               setDate(text);
-              console.log(text, date);
             }}
           />
 
@@ -52,7 +70,6 @@ export const MealForm = () => {
             value={time}
             onChangeText={(text) => {
               setTime(text);
-              console.log(text, time);
             }}
           />
         </S.InputRow>
@@ -73,13 +90,12 @@ export const MealForm = () => {
           ]}
           selectedOption={isWithinDiet ? "yes" : "no"}
           onChange={() => {
-            console.log("change");
             setIsWithinDiet((prevState) => !prevState);
           }}
         />
       </View>
 
-      <Button title="Add meal" />
+      <Button title="Add meal" onPress={handleCreateMeal} />
     </S.Container>
   );
 };

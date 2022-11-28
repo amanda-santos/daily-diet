@@ -1,8 +1,8 @@
 export type Meal = {
   uuid: string;
-  title: string;
+  name: string;
   description: string;
   date: Date;
-  time: string;
+  time: Date;
   isWithinDiet: boolean;
 };

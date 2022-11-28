@@ -5,21 +5,18 @@ import { ThemeProvider } from "styled-components";
 
 import { theme } from "@theme/index";
 import { Routes } from "@routes/index";
-import { MealsProvider } from "@contexts/MealsContext";
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Nunito_400Regular, Nunito_700Bold });
 
   return (
     <ThemeProvider theme={theme}>
-      <MealsProvider>
-        <StatusBar
-          barStyle="dark-content"
-          backgroundColor="transparent"
-          translucent
-        />
-        {fontsLoaded ? <Routes /> : null}
-      </MealsProvider>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor="transparent"
+        translucent
+      />
+      {fontsLoaded ? <Routes /> : null}
     </ThemeProvider>
   );
 }
