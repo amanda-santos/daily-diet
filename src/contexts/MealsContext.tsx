@@ -42,6 +42,7 @@ export const MealsProvider = ({ children }: MealsProviderProps) => {
 
   const onCreateMeal = async (meal: Omit<Meal, "uuid">) => {
     const trimmedMealName = meal.name.trim();
+    const trimmedMealDescription = meal.description.trim();
 
     if (trimmedMealName.length === 0) {
       return Alert.alert(
@@ -64,6 +65,7 @@ export const MealsProvider = ({ children }: MealsProviderProps) => {
       await createMeal({
         ...meal,
         name: trimmedMealName,
+        description: trimmedMealDescription,
       });
       navigation.navigate("home");
     } catch (error) {

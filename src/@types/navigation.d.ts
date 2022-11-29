@@ -7,6 +7,9 @@ export declare global {
       mealAddedSuccessfully: {
         isWithinDiet: Meal["isWithinDiet"];
       };
+      mealDetails: {
+        mealUuid: Meal["uuid"];
+      };
       newMeal: undefined;
       statistics: undefined;
     }

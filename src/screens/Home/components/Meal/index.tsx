@@ -3,6 +3,7 @@ import { format } from "date-fns";
 import { enGB } from "date-fns/locale";
 import { Circle } from "phosphor-react-native";
 import { useTheme } from "styled-components/native";
+import { useNavigation } from "@react-navigation/native";
 
 import { Meal as MealType } from "src/types";
 
@@ -17,9 +18,14 @@ export const Meal = ({ meal }: MealProps) => {
   const formattedTime = format(new Date(time), "HH:mm", { locale: enGB });
 
   const { colors } = useTheme();
+  const navigation = useNavigation();
+
+  const handleOpenMeal = () => {
+    navigation.navigate("mealDetails", { mealUuid: uuid });
+  };
 
   return (
-    <S.Container>
+    <S.Container onPress={handleOpenMeal}>
       <S.CustomText size="xs" weight="bold">
         {formattedTime}
       </S.CustomText>
