@@ -53,7 +53,14 @@ export const Home = (): ReactElement => {
         Meals
       </Text>
 
-      <Button title="Add a meal" icon="add" onPress={handleOpenAddAMeal} />
+      <Button
+        title="Add a meal"
+        icon={{
+          name: "add",
+          size: 24,
+        }}
+        onPress={handleOpenAddAMeal}
+      />
 
       <FlatList
         data={mealGroups}

@@ -7,6 +7,7 @@ import {
   createMeal,
   removeMealByUuid,
   updateMeal,
+  getMealByUuid,
 } from "@storage/meal";
 import { isDateValid } from "@utils/isDateValid";
 
@@ -15,6 +16,7 @@ import { Meal } from "src/types";
 export type MealsContextType = {
   meals: Meal[];
   fetchMeals: () => Promise<void>;
+  fetchMeal: (uuid: Meal["uuid"]) => Promise<Meal | undefined>;
   onCreateMeal: (meal: Omit<Meal, "uuid">) => Promise<void>;
   onRemoveMeal: (mealUuid: Meal["uuid"]) => Promise<void>;
   onUpdateMeal: (meal: Meal) => Promise<void>;
@@ -36,6 +38,19 @@ export const MealsProvider = ({ children }: MealsProviderProps) => {
       setMeals(meals);
     } catch (error) {
       Alert.alert("Error", "Something went wrong while fetching meals");
+      console.log(error);
+    }
+  };
+
+  const fetchMeal = async (mealUuid: Meal["uuid"]) => {
+    try {
+      const meal = await getMealByUuid(mealUuid);
+      return meal;
+    } catch (error) {
+      Alert.alert(
+        "Error",
+        "Something went wrong while fetching the meal data."
+      );
       console.log(error);
     }
   };
@@ -108,6 +123,7 @@ export const MealsProvider = ({ children }: MealsProviderProps) => {
       value={{
         meals,
         fetchMeals,
+        fetchMeal,
         onCreateMeal,
         onRemoveMeal,
         onUpdateMeal,

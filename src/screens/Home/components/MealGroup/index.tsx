@@ -1,7 +1,8 @@
 import { Text } from "@components/Text";
-import { format } from "date-fns";
 import { FlatList } from "react-native";
 import { Meal as MealType } from "src/types";
+
+import { format, FORMATS } from "@utils/index";
 import { Meal } from "../Meal";
 import * as S from "./styles";
 
@@ -14,7 +15,7 @@ export const MealGroup = ({ date, meals }: MealGroupProps) => {
   return (
     <S.Container>
       <Text size="lg" weight="bold">
-        {format(date, "dd.MM.yy")}
+        {format(date, FORMATS.SHORT_DATE)}
       </Text>
 
       <FlatList

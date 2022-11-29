@@ -8,7 +8,7 @@ export declare global {
         isWithinDiet: Meal["isWithinDiet"];
       };
       mealDetails: {
-        mealUuid: Meal["uuid"];
+        uuid: Meal["uuid"];
       };
       newMeal: undefined;
       statistics: undefined;

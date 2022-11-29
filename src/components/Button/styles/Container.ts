@@ -1,8 +1,24 @@
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
 
-export const Container = styled.TouchableOpacity`
-  background-color: ${({ theme }) => theme.colors["gray-2"]};
-  color: ${({ theme }) => theme.colors["white"]};
+export type ContainerProps = {
+  buttonTheme?: "primary" | "secondary";
+};
+
+export const Container = styled.TouchableOpacity<ContainerProps>`
+  ${({ buttonTheme, theme }) => css`
+    ${buttonTheme === "primary" &&
+    css`
+      background-color: ${theme.colors["gray-2"]};
+      color: ${theme.colors["white"]};
+    `}
+
+    ${buttonTheme === "secondary" &&
+    css`
+      background-color: ${theme.colors["white"]};
+      color: ${theme.colors["gray-1"]};
+      border: 1px solid ${theme.colors["gray-2"]};
+    `}
+  `}
 
   width: 100%;
   height: 56px;
