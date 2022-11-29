@@ -21,7 +21,7 @@ type DietInformationType = {
 };
 
 export const MealDetails = () => {
-  const { fetchMeal } = useMealsContext();
+  const { fetchMeal, onRemoveMeal } = useMealsContext();
 
   const route = useRoute();
   const { uuid } = route.params as RouteParams;
@@ -33,6 +33,11 @@ export const MealDetails = () => {
   const DIET_INFORMATION: DietInformationType = {
     color: meal?.isWithinDiet ? "green" : "red",
     text: meal?.isWithinDiet ? "within diet" : "not within diet",
+  };
+
+  const handleRemoveMeal = () => {
+    if (!meal) return;
+    onRemoveMeal(meal.uuid);
   };
 
   useEffect(() => {
@@ -124,6 +129,7 @@ export const MealDetails = () => {
           style={{
             marginTop: 8,
           }}
+          onPress={handleRemoveMeal}
         />
       </S.MainContent>
     </S.Container>

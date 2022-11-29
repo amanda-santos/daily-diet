@@ -82,7 +82,9 @@ export const MealsProvider = ({ children }: MealsProviderProps) => {
         name: trimmedMealName,
         description: trimmedMealDescription,
       });
-      navigation.navigate("home");
+      navigation.navigate("mealAddedSuccessfully", {
+        isWithinDiet: meal.isWithinDiet,
+      });
     } catch (error) {
       Alert.alert(
         "New meal",
@@ -95,7 +97,7 @@ export const MealsProvider = ({ children }: MealsProviderProps) => {
   const onRemoveMeal = async (mealUuid: Meal["uuid"]) => {
     try {
       await removeMealByUuid(mealUuid);
-      fetchMeals();
+      navigation.navigate("home");
     } catch (error) {
       Alert.alert(
         "Remove meal",
