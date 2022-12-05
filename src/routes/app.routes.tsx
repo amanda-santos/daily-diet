@@ -5,7 +5,7 @@ import {
   Home,
   Statistics,
   MealAddedSuccessfully,
-  NewMeal,
+  MealForm,
   MealDetails,
 } from "@screens/index";
 
@@ -17,7 +17,7 @@ export const AppRoutes = (): ReactElement => {
       <Screen name="home" component={Home} />
       <Screen name="mealAddedSuccessfully" component={MealAddedSuccessfully} />
       <Screen name="mealDetails" component={MealDetails} />
-      <Screen name="newMeal" component={NewMeal} />
+      <Screen name="mealForm" component={MealForm} />
       <Screen name="statistics" component={Statistics} />
     </Navigator>
   );

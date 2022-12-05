@@ -110,7 +110,7 @@ export const MealsProvider = ({ children }: MealsProviderProps) => {
   const onUpdateMeal = async (meal: Meal) => {
     try {
       await updateMeal(meal);
-      fetchMeals();
+      navigation.navigate("mealDetails", { uuid: meal.uuid });
     } catch (error) {
       Alert.alert(
         "Update meal",

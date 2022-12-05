@@ -3,8 +3,8 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { Button, Text } from "@components/index";
 import outOfDietImg from "@assets/out-of-diet-illustration.png";
 import withinDietImg from "@assets/within-diet-illustration.png";
-
 import { Meal } from "src/types";
+
 import * as S from "./styles";
 
 type RouteParams = {

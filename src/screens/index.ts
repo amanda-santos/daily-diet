@@ -1,5 +1,5 @@
 export { Home } from "./Home";
 export { MealAddedSuccessfully } from "./MealAddedSuccessfully";
 export { MealDetails } from "./MealDetails";
-export { NewMeal } from "./NewMeal";
+export { MealForm } from "./MealForm";
 export { Statistics } from "./Statistics";

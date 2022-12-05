@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useEffect } from "react";
+import { ReactElement, useCallback } from "react";
 import { FlatList } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import groupBy from "lodash.groupby";
@@ -35,7 +35,7 @@ export const Home = (): ReactElement => {
   );
 
   const handleOpenAddAMeal = () => {
-    navigation.navigate("newMeal");
+    navigation.navigate("mealForm", { meal: undefined });
   };
 
   return (

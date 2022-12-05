@@ -10,7 +10,9 @@ export declare global {
       mealDetails: {
         uuid: Meal["uuid"];
       };
-      newMeal: undefined;
+      mealForm: {
+        meal?: Meal;
+      };
       statistics: undefined;
     }
   }

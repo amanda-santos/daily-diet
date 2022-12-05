@@ -1,31 +1,43 @@
 import { useState } from "react";
+import { View } from "react-native";
 
 import { MaskedInput, OptionsInput, TextInput } from "@components/Input";
+import { useMealsContext } from "@contexts/MealsContext";
+import { parseDate, parseTime, format, FORMATS } from "@utils/index";
 import { Button } from "../Button";
+import { Meal } from "src/types";
 
 import * as S from "./styles";
-import { View } from "react-native";
-import { useMealsContext } from "@contexts/MealsContext";
-import { parseDate } from "@utils/parseDate";
-import { parseTime } from "@utils/parseTime";
 
-export const MealForm = () => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [isWithinDiet, setIsWithinDiet] = useState(true);
+type MealFormProps = {
+  meal?: Meal;
+};
 
-  const { onCreateMeal } = useMealsContext();
+export const MealForm = ({ meal }: MealFormProps) => {
+  const [name, setName] = useState(meal?.name ?? "");
+  const [description, setDescription] = useState(meal?.description ?? "");
+  const [date, setDate] = useState(
+    meal?.date ? format(meal.date, FORMATS.LONG_DATE) : ""
+  );
+  const [time, setTime] = useState(
+    meal?.time ? format(meal.time, FORMATS.TIME) : ""
+  );
+  const [isWithinDiet, setIsWithinDiet] = useState(meal?.isWithinDiet ?? true);
 
-  const handleCreateMeal = () => {
-    onCreateMeal({
+  const { onCreateMeal, onUpdateMeal } = useMealsContext();
+
+  const handleSubmit = () => {
+    const newMealData = {
       name,
       description,
       date: parseDate(date),
       time: parseTime(time),
       isWithinDiet,
-    });
+    };
+
+    meal
+      ? onUpdateMeal({ ...newMealData, uuid: meal.uuid })
+      : onCreateMeal(newMealData);
   };
 
   return (
@@ -53,7 +65,7 @@ export const MealForm = () => {
             label="Date"
             type="datetime"
             options={{
-              format: "DD/MM/YY",
+              format: "DD/MM/YYYY",
             }}
             value={date}
             onChangeText={(text) => {
@@ -95,7 +107,7 @@ export const MealForm = () => {
         />
       </View>
 
-      <Button title="Add meal" onPress={handleCreateMeal} />
+      <Button title={meal ? "Save" : "Add meal"} onPress={handleSubmit} />
     </S.Container>
   );
 };

@@ -1,5 +1,9 @@
-import { useEffect, useState } from "react";
-import { useRoute } from "@react-navigation/native";
+import { useState, useCallback } from "react";
+import {
+  useNavigation,
+  useRoute,
+  useFocusEffect,
+} from "@react-navigation/native";
 import { Circle } from "phosphor-react-native";
 import { useTheme } from "styled-components/native";
 
@@ -24,6 +28,7 @@ export const MealDetails = () => {
   const { fetchMeal, onRemoveMeal } = useMealsContext();
 
   const route = useRoute();
+  const navigation = useNavigation();
   const { uuid } = route.params as RouteParams;
 
   const { colors } = useTheme();
@@ -35,19 +40,26 @@ export const MealDetails = () => {
     text: meal?.isWithinDiet ? "within diet" : "not within diet",
   };
 
+  const handleEditMeal = () => {
+    if (!meal) return;
+    navigation.navigate("mealForm", { meal });
+  };
+
   const handleRemoveMeal = () => {
     if (!meal) return;
     onRemoveMeal(meal.uuid);
   };
 
-  useEffect(() => {
-    const onLoad = async () => {
-      const meal = await fetchMeal(uuid);
-      setMeal(meal);
-    };
+  const loadMeal = async () => {
+    const meal = await fetchMeal(uuid);
+    setMeal(meal);
+  };
 
-    onLoad();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      loadMeal();
+    }, [])
+  );
 
   if (!meal) {
     return null;
@@ -118,6 +130,7 @@ export const MealDetails = () => {
             name: "edit",
             size: 16,
           }}
+          onPress={handleEditMeal}
         />
         <Button
           title="Delete meal"
