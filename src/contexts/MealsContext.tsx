@@ -53,6 +53,7 @@ export const MealsProvider = ({ children }: MealsProviderProps) => {
     try {
       const meals = await getAllMeals();
       setMeals(meals);
+      calculateStatistics(meals);
     } catch (error) {
       Alert.alert("Error", "Something went wrong while fetching meals");
       console.log(error);
@@ -135,6 +136,58 @@ export const MealsProvider = ({ children }: MealsProviderProps) => {
       );
       console.log(error);
     }
+  };
+
+  const calculateLargestSequenceOfMealsWithinDiet = (meals: Meal[]) => {
+    let largestSequenceOfMealsWithinDiet = 0;
+    let currentSequenceOfMealsWithinDiet = 0;
+
+    for (let i = 0; i < meals.length; i++) {
+      if (meals[i].isWithinDiet) {
+        currentSequenceOfMealsWithinDiet++;
+      } else {
+        if (
+          currentSequenceOfMealsWithinDiet > largestSequenceOfMealsWithinDiet
+        ) {
+          largestSequenceOfMealsWithinDiet = currentSequenceOfMealsWithinDiet;
+        }
+        currentSequenceOfMealsWithinDiet = 0;
+      }
+    }
+
+    if (currentSequenceOfMealsWithinDiet > largestSequenceOfMealsWithinDiet) {
+      largestSequenceOfMealsWithinDiet = currentSequenceOfMealsWithinDiet;
+    }
+
+    return largestSequenceOfMealsWithinDiet;
+  };
+
+  const calculateStatistics = (meals: Meal[]) => {
+    const mealsAmount = meals.length;
+
+    const mealsWithinDietAmount = meals.filter(
+      (meal) => meal.isWithinDiet === true
+    ).length;
+
+    const mealsOutsideDietAmount = meals.filter(
+      (meal) => meal.isWithinDiet === false
+    ).length;
+
+    const mealsWithinDietPercentage =
+      mealsAmount > 0
+        ? Math.round((mealsWithinDietAmount / mealsAmount) * 100)
+        : 0;
+
+    const largestSequenceOfMealsWithinDiet =
+      calculateLargestSequenceOfMealsWithinDiet(meals);
+
+    setStatistics({
+      mealsAmount,
+      mealsWithinDietAmount,
+      mealsOutsideDietAmount,
+      mealsWithinDietPercentage,
+      largestSequenceOfMealsWithinDiet,
+    });
   };
 
   return (
