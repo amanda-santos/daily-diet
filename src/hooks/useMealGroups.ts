@@ -1,7 +1,7 @@
 import groupBy from "lodash.groupby";
 import sortBy from "lodash.sortby";
 
-import { FORMATS, format } from "@utils/index";
+import { FORMATS, format, parseDate } from "@utils/index";
 
 import { Meal } from "src/types";
 
@@ -17,12 +17,15 @@ export const useMealGroups = (meals: Meal[]): MealGroup[] => {
 
   const mealGroups: MealGroup[] = Object.keys(mealsGroupedByDate).map(
     (key) => ({
-      date: new Date(key),
-      meals: sortBy(mealsGroupedByDate[key], (meal) => meal.dateTime),
+      date: parseDate(key),
+      meals: sortBy(mealsGroupedByDate[key], (meal) => meal.dateTime).reverse(),
     })
   );
 
-  const orderedMealGroups = sortBy(mealGroups, (mealGroup) => mealGroup.date);
+  const orderedMealGroups = sortBy(
+    mealGroups,
+    (mealGroup) => mealGroup.date
+  ).reverse();
 
   return orderedMealGroups;
 };

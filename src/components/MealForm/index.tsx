@@ -27,8 +27,6 @@ export const MealForm = ({ meal }: MealFormProps) => {
   const { onCreateMeal, onUpdateMeal } = useMealsContext();
 
   const handleSubmit = () => {
-    console.log("==============DEBUG", date, parseDateTime(`${date} ${time}`));
-
     const newMealData = {
       name,
       description,

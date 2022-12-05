@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { Alert, View } from "react-native";
 import {
   useNavigation,
   useRoute,
@@ -13,7 +14,6 @@ import { format, FORMATS } from "@utils/index";
 import { Meal } from "src/types";
 
 import * as S from "./styles";
-import { View } from "react-native";
 
 type RouteParams = {
   uuid: Meal["uuid"];
@@ -47,7 +47,11 @@ export const MealDetails = () => {
 
   const handleRemoveMeal = () => {
     if (!meal) return;
-    onRemoveMeal(meal.uuid);
+
+    Alert.alert("Remove", "Are you sure you want to remove this meal?", [
+      { text: "No", style: "cancel" },
+      { text: "Yes", onPress: () => onRemoveMeal(meal.uuid) },
+    ]);
   };
 
   const loadMeal = async () => {
@@ -133,7 +137,7 @@ export const MealDetails = () => {
           onPress={handleEditMeal}
         />
         <Button
-          title="Delete meal"
+          title="Remove meal"
           buttonTheme="secondary"
           icon={{
             name: "delete",
