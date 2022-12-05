@@ -4,11 +4,13 @@ import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import groupBy from "lodash.groupby";
 
 import { Button, Header, Text } from "@components/index";
+import { useMealsContext } from "@contexts/MealsContext";
 
 import { Meal } from "src/types";
+import { MINIMUM_ACCEPTED_PERCENTAGE_WITHIN_DIET } from "../../constants";
 import { MealGroup, MealsPercentageBox } from "./components";
+
 import * as S from "./styles";
-import { useMealsContext } from "@contexts/MealsContext";
 
 type MealGroupType = {
   date: Date;
@@ -16,7 +18,7 @@ type MealGroupType = {
 };
 
 export const Home = (): ReactElement => {
-  const { fetchMeals, meals } = useMealsContext();
+  const { fetchMeals, meals, statistics } = useMealsContext();
 
   useFocusEffect(
     useCallback(() => {
@@ -42,7 +44,15 @@ export const Home = (): ReactElement => {
     <S.Container>
       <Header />
 
-      <MealsPercentageBox percentage={90.86} color="green" />
+      <MealsPercentageBox
+        percentage={statistics.mealsWithinDietPercentage}
+        color={
+          statistics.mealsWithinDietPercentage >=
+          MINIMUM_ACCEPTED_PERCENTAGE_WITHIN_DIET * 100
+            ? "green"
+            : "red"
+        }
+      />
 
       <Text
         customStyles={{

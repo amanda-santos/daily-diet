@@ -13,8 +13,17 @@ import { isDateValid } from "@utils/isDateValid";
 
 import { Meal } from "src/types";
 
+type Statistics = {
+  mealsAmount: number;
+  mealsWithinDietAmount: number;
+  mealsOutsideDietAmount: number;
+  mealsWithinDietPercentage: number;
+  largestSequenceOfMealsWithinDiet: number;
+};
+
 export type MealsContextType = {
   meals: Meal[];
+  statistics: Statistics;
   fetchMeals: () => Promise<void>;
   fetchMeal: (uuid: Meal["uuid"]) => Promise<Meal | undefined>;
   onCreateMeal: (meal: Omit<Meal, "uuid">) => Promise<void>;
@@ -30,6 +39,14 @@ type MealsProviderProps = {
 
 export const MealsProvider = ({ children }: MealsProviderProps) => {
   const [meals, setMeals] = useState<Meal[]>([]);
+  const [statistics, setStatistics] = useState<Statistics>({
+    mealsAmount: 0,
+    mealsWithinDietAmount: 0,
+    mealsOutsideDietAmount: 0,
+    mealsWithinDietPercentage: 0,
+    largestSequenceOfMealsWithinDiet: 0,
+  });
+
   const navigation = useNavigation();
 
   const fetchMeals = async () => {
@@ -124,6 +141,7 @@ export const MealsProvider = ({ children }: MealsProviderProps) => {
     <MealsContext.Provider
       value={{
         meals,
+        statistics,
         fetchMeals,
         fetchMeal,
         onCreateMeal,
