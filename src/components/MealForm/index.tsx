@@ -3,7 +3,7 @@ import { View } from "react-native";
 
 import { MaskedInput, OptionsInput, TextInput } from "@components/Input";
 import { useMealsContext } from "@contexts/MealsContext";
-import { parseDate, parseTime, format, FORMATS } from "@utils/index";
+import { parseDateTime, format, FORMATS } from "@utils/index";
 import { Button } from "../Button";
 import { Meal } from "src/types";
 
@@ -17,21 +17,22 @@ export const MealForm = ({ meal }: MealFormProps) => {
   const [name, setName] = useState(meal?.name ?? "");
   const [description, setDescription] = useState(meal?.description ?? "");
   const [date, setDate] = useState(
-    meal?.date ? format(meal.date, FORMATS.LONG_DATE) : ""
+    meal?.dateTime ? format(meal.dateTime, FORMATS.LONG_DATE) : ""
   );
   const [time, setTime] = useState(
-    meal?.time ? format(meal.time, FORMATS.TIME) : ""
+    meal?.dateTime ? format(meal.dateTime, FORMATS.TIME) : ""
   );
   const [isWithinDiet, setIsWithinDiet] = useState(meal?.isWithinDiet ?? true);
 
   const { onCreateMeal, onUpdateMeal } = useMealsContext();
 
   const handleSubmit = () => {
+    console.log("==============DEBUG", date, parseDateTime(`${date} ${time}`));
+
     const newMealData = {
       name,
       description,
-      date: parseDate(date),
-      time: parseTime(time),
+      dateTime: parseDateTime(`${date} ${time}`),
       isWithinDiet,
     };
 

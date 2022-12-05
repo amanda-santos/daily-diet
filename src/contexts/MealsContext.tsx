@@ -78,16 +78,12 @@ export const MealsProvider = ({ children }: MealsProviderProps) => {
     const trimmedMealDescription = meal.description.trim();
 
     if (trimmedMealName.length === 0) {
-      return Alert.alert(
-        "New meal",
-        "Please enter a description for the meal."
-      );
+      return Alert.alert("New meal", "Please enter the meal name.");
     }
 
-    const isMealDateValid = isDateValid(meal.date);
-    const isMealTimeValid = isDateValid(meal.time);
+    const isMealDateTimeValid = isDateValid(meal.dateTime);
 
-    if (!isMealDateValid || !isMealTimeValid) {
+    if (!isMealDateTimeValid) {
       return Alert.alert(
         "New meal",
         "Please enter a valid date and time for the meal."
@@ -142,8 +138,23 @@ export const MealsProvider = ({ children }: MealsProviderProps) => {
     let largestSequenceOfMealsWithinDiet = 0;
     let currentSequenceOfMealsWithinDiet = 0;
 
-    for (let i = 0; i < meals.length; i++) {
-      if (meals[i].isWithinDiet) {
+    const orderedMeals = meals.sort((a, b) => {
+      const aDate = new Date(a.dateTime);
+      const bDate = new Date(b.dateTime);
+
+      if (aDate > bDate) {
+        return 1;
+      } else if (aDate < bDate) {
+        return -1;
+      }
+
+      return 0;
+    });
+
+    console.table("orderedMeals", orderedMeals);
+
+    for (let i = 0; i < orderedMeals.length; i++) {
+      if (orderedMeals[i].isWithinDiet) {
         currentSequenceOfMealsWithinDiet++;
       } else {
         if (

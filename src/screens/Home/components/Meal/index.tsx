@@ -13,8 +13,8 @@ export type MealProps = {
 };
 
 export const Meal = ({ meal }: MealProps) => {
-  const { uuid, name, time, isWithinDiet } = meal;
-  const formattedTime = format(time, FORMATS.TIME);
+  const { uuid, name, dateTime, isWithinDiet } = meal;
+  const formattedTime = format(dateTime, FORMATS.TIME);
 
   const { colors } = useTheme();
   const navigation = useNavigation();

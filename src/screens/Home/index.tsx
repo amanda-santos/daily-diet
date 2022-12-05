@@ -1,24 +1,19 @@
 import { ReactElement, useCallback } from "react";
 import { FlatList } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
-import groupBy from "lodash.groupby";
 
 import { Button, Header, Text } from "@components/index";
 import { useMealsContext } from "@contexts/MealsContext";
+import { useMealGroups } from "@hooks/useMealGroups";
 
-import { Meal } from "src/types";
 import { MINIMUM_ACCEPTED_PERCENTAGE_WITHIN_DIET } from "../../constants";
 import { MealGroup, MealsPercentageBox } from "./components";
 
 import * as S from "./styles";
 
-type MealGroupType = {
-  date: Date;
-  meals: Meal[];
-};
-
 export const Home = (): ReactElement => {
   const { fetchMeals, meals, statistics } = useMealsContext();
+  const mealGroups = useMealGroups(meals);
 
   useFocusEffect(
     useCallback(() => {
@@ -27,14 +22,6 @@ export const Home = (): ReactElement => {
   );
 
   const navigation = useNavigation();
-
-  const mealsGroupedByDate = groupBy(meals, (meal) => meal.date);
-  const mealGroups: MealGroupType[] = Object.keys(mealsGroupedByDate).map(
-    (key) => ({
-      date: new Date(key),
-      meals: mealsGroupedByDate[key],
-    })
-  );
 
   const handleOpenAddAMeal = () => {
     navigation.navigate("mealForm", { meal: undefined });

@@ -99,8 +99,8 @@ export const MealDetails = () => {
           </Text>
 
           <Text>
-            {`${format(meal.date, FORMATS.LONG_DATE)} at ${format(
-              meal.time,
+            {`${format(meal.dateTime, FORMATS.LONG_DATE)} at ${format(
+              meal.dateTime,
               FORMATS.TIME
             )}`}
           </Text>
